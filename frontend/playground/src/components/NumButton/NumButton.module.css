@@ -1,0 +1,13 @@
+.button {
+  width: 90%;
+  aspect-ratio: 1;
+  margin: 0.25rem;
+  background-color: gray;
+  border-radius: 0.5rem;
+  border: none;
+  box-shadow: 1px 1px rgba(255, 255, 255, 0.75);
+}
+
+.button:hover {
+  background-color: rgba(128, 128, 128, 0.75);
+}

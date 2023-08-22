@@ -1,0 +1,26 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrap section {
+  width: 300px;
+}
+
+.numRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.numRow:last-child {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.num {
+  display: flex;
+  justify-content: end;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
