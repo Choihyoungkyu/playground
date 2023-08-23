@@ -12,15 +12,17 @@
 .numRow {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  row-gap: 10px;
+  column-gap: 10px;
 }
 
 .numRow:last-child {
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 2.148fr 1fr 1fr;
 }
 
 .num {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
