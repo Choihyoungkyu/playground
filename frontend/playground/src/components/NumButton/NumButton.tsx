@@ -11,7 +11,16 @@ interface PropsType {
 
 const NumButton = ({ num, handleButton, className }: PropsType) => {
   return (
-    <button className={style.button} onClick={() => handleButton(num)}>
+    <button
+      className={`
+        ${style.button} 
+        ${className && className.split(' ').includes('zero') && style.zero}
+        ${className && className.split(' ').includes('orange') && style.orange}
+        ${className && className.split(' ').includes('gray') && style.gray}
+        ${className && className.split(' ').includes('focus') && style.focus}
+      `}
+      onClick={() => handleButton(num)}
+    >
       {num}
     </button>
   );
