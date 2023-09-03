@@ -16,6 +16,9 @@ const Navbar = () => {
         <li key="calculator" tabIndex={0} onClick={() => router.push('/calculator')}>
           Calculator
         </li>
+        <li key="weather" tabIndex={0} onClick={() => router.push('/weather')}>
+          Weather
+        </li>
       </ul>
     </section>
   );

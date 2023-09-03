@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 1rem;
 }
 
 .wrap section {
@@ -22,7 +23,10 @@
 
 .num {
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
-  font-size: 1.5rem;
+  font-size: 3rem;
   margin-bottom: 1rem;
+  overflow-x: auto;
+  /* margin-right: 1rem; */
 }

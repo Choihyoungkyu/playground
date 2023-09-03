@@ -1,0 +1,7 @@
+.wrap {
+  padding: 1rem;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

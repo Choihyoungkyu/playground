@@ -2,18 +2,16 @@
 
 import NumButton from '@/components/NumButton/NumButton';
 import style from '@/styles/calculator.module.css';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 const calculator = () => {
-  const [buffer, setBuffer] = useState<number>(0);
-  const [num, setNum] = useState<number>(0);
-  const [previousSymbol, setPreviousSymbol] = useState<string>(null);
-  const [isPercentage, setIsPercentage] = useState<boolean>(false);
-
-  console.log('num :', num, 'buffer :', buffer, 'symbol :', previousSymbol);
+  const [buffer, setBuffer] = useState<string>('0');
+  const [isUpdate, setIsUpdate] = useState<boolean>(false);
+  const num = useRef<string>('0');
+  const previousSymbol = useRef<string>(null);
 
   const handleButton = async (value: string) => {
-    if (isNaN(parseInt(value))) {
+    if (isNaN(parseFloat(value))) {
       handleSymbol(value);
     } else {
       handleNumber(value);
@@ -23,24 +21,25 @@ const calculator = () => {
   const handleSymbol = (symbol: string) => {
     switch (symbol) {
       case 'AC':
-        setBuffer(0);
-        setNum(0);
+        num.current = '0';
+        previousSymbol.current = null;
+        setBuffer('0');
+        setIsUpdate((prev) => !prev);
         break;
       case '=':
-        if (previousSymbol === null) {
+        if (previousSymbol.current === null) {
           return;
         }
         flushOperation();
-        setPreviousSymbol(null);
-        setBuffer(num);
-        setNum(0);
-        setIsPercentage(false);
+        previousSymbol.current = null;
+        setBuffer(num.current);
+        num.current = '0';
         break;
       case '←':
-        if (buffer.toString().length === 1) {
-          setBuffer(0);
+        if (buffer.length === 1) {
+          setBuffer('0');
         } else {
-          setBuffer((prev) => parseInt(prev.toString().substring(0, prev.toString().length)));
+          setBuffer((prev) => prev.substring(0, prev.length - 1));
         }
         break;
       case '+':
@@ -49,95 +48,123 @@ const calculator = () => {
       case '÷':
         handleMath(symbol);
         break;
+      case '.':
+        setBuffer((prev) => prev + '.');
     }
   };
 
   const handleMath = (symbol: string) => {
-    if (buffer === 0) {
+    if (buffer === '0') {
+      setIsUpdate((prev) => !prev);
+      previousSymbol.current = symbol;
       return;
     }
 
-    if (num === 0) {
-      setNum(buffer);
+    if (num.current === '0') {
+      num.current = buffer;
     } else {
       flushOperation();
     }
-    setPreviousSymbol(symbol);
-    setBuffer(0);
+    previousSymbol.current = symbol;
+    setBuffer('0');
   };
 
   const flushOperation = () => {
-    if (previousSymbol === '+') {
-      setNum((prev) => prev + buffer);
-    } else if (previousSymbol === '-') {
-      setNum((prev) => prev - buffer);
-    } else if (previousSymbol === 'x') {
-      setNum((prev) => prev * buffer);
-    } else if (previousSymbol === '÷') {
-      setNum((prev) => prev / buffer);
+    if (previousSymbol.current === '+') {
+      num.current = customNum((parseFloat(num.current) + parseFloat(buffer)).toString());
+    } else if (previousSymbol.current === '-') {
+      num.current = customNum((parseFloat(num.current) - parseFloat(buffer)).toString());
+    } else if (previousSymbol.current === 'x') {
+      num.current = customNum((parseFloat(num.current) * parseFloat(buffer)).toString());
+    } else if (previousSymbol.current === '÷') {
+      num.current = customNum((parseFloat(num.current) / parseFloat(buffer)).toString());
     }
   };
 
   const handleNumber = (value: string) => {
-    if (buffer === 0) {
-      setBuffer(parseInt(value));
+    if (buffer === '0') {
+      setBuffer(value);
     } else {
-      setBuffer((prev) => parseInt(prev.toString() + value));
+      if (buffer.length < 9) {
+        setBuffer((prev) => prev + value);
+      } else {
+        setBuffer((prev) => prev.substring(1, 9) + value);
+      }
     }
   };
 
   const doPlusMinus = () => {
-    if (num > 0) {
-      setNum((prev) => parseInt('-' + prev.toString()));
-    } else if (num < 0) {
-      setNum((prev) => parseInt(prev.toString().substring(1, prev.toString().length)));
+    if (parseFloat(buffer) > 0) {
+      setBuffer((prev) => '-' + prev);
+    } else if (parseFloat(buffer) < 0) {
+      setBuffer((prev) => prev.substring(1, prev.length));
     }
   };
 
-  const doPercent = () => {
-    if (!isPercentage) {
-      setNum((prev) => prev * 0.01);
-      setIsPercentage(true);
+  const customNum = (num: string) => {
+    const numList = num.split('.');
+    if (numList.length === 1) {
+      return num;
     } else {
-      setNum((prev) => prev * 100);
-      setIsPercentage(false);
+      const target = numList[1];
+      if (target.length < 5) {
+        return num;
+      } else {
+        return numList[0] + '.' + target.substring(0, 5);
+      }
     }
   };
 
   return (
     <div className={style.wrap}>
       <section>
-        <div className={style.num}>{buffer}</div>
+        <div className={style.num}>{buffer === '0' ? num.current : buffer}</div>
       </section>
       <section>
         <div className={style.numRow}>
-          <NumButton num={'AC'} handleButton={handleButton} />
-          <NumButton num={'+/-'} handleButton={doPlusMinus} />
-          <NumButton num={'%'} handleButton={doPercent} />
-          <NumButton num={'÷'} handleButton={handleButton} />
+          <NumButton num={'AC'} className="gray" handleButton={handleButton} />
+          <NumButton num={'+/-'} className="gray" handleButton={doPlusMinus} />
+          <NumButton num={'←'} className="gray" handleButton={handleButton} />
+          <NumButton
+            num={'÷'}
+            className={`orange ${previousSymbol.current === '÷' && 'focus'}`}
+            handleButton={handleButton}
+          />
         </div>
         <div className={style.numRow}>
           <NumButton num={'7'} handleButton={handleButton} />
           <NumButton num={'8'} handleButton={handleButton} />
           <NumButton num={'9'} handleButton={handleButton} />
-          <NumButton num={'x'} handleButton={handleButton} />
+          <NumButton
+            num={'x'}
+            className={`orange ${previousSymbol.current === 'x' && 'focus'}`}
+            handleButton={handleButton}
+          />
         </div>
         <div className={style.numRow}>
           <NumButton num={'4'} handleButton={handleButton} />
           <NumButton num={'5'} handleButton={handleButton} />
           <NumButton num={'6'} handleButton={handleButton} />
-          <NumButton num={'-'} handleButton={handleButton} />
+          <NumButton
+            num={'-'}
+            className={`orange ${previousSymbol.current === '-' && 'focus'}`}
+            handleButton={handleButton}
+          />
         </div>
         <div className={style.numRow}>
           <NumButton num={'1'} handleButton={handleButton} />
           <NumButton num={'2'} handleButton={handleButton} />
           <NumButton num={'3'} handleButton={handleButton} />
-          <NumButton num={'+'} handleButton={handleButton} />
+          <NumButton
+            num={'+'}
+            className={`orange ${previousSymbol.current === '+' && 'focus'}`}
+            handleButton={handleButton}
+          />
         </div>
         <div className={style.numRow}>
-          <NumButton num={'0'} handleButton={handleButton} />
+          <NumButton num={'0'} className="zero" handleButton={handleButton} />
           <NumButton num={'.'} handleButton={handleButton} />
-          <NumButton num={'='} handleButton={handleButton} />
+          <NumButton num={'='} className="orange" handleButton={handleButton} />
         </div>
       </section>
     </div>
