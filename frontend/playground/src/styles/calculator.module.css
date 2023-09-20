@@ -7,7 +7,31 @@
 }
 
 .wrap section {
-  width: 300px;
+  width: 340px;
+  padding: 1rem;
+  border: 0.5px solid;
+  /* box-shadow: 3px 4px 5px rgba(255, 255, 255), -3px -4px 5px rgba(255, 255, 255); */
+}
+
+.wrap section:first-child {
+  border-radius: 0.5rem 0.5rem 0 0;
+  border-bottom: none;
+}
+
+.wrap section:last-child {
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.num {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  font-size: 3rem;
+  overflow-x: auto;
+  background-color: rgb(36, 36, 36);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  /* margin-right: 1rem; */
 }
 
 .numRow {
@@ -19,14 +43,4 @@
 
 .numRow:last-child {
   grid-template-columns: 2.148fr 1fr 1fr;
-}
-
-.num {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  overflow-x: auto;
-  /* margin-right: 1rem; */
 }

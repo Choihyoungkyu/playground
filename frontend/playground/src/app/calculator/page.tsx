@@ -49,7 +49,7 @@ const calculator = () => {
         handleMath(symbol);
         break;
       case '.':
-        setBuffer((prev) => prev + '.');
+        setBuffer((prev) => (prev.charAt(prev.length - 1) !== '.' ? prev + '.' : prev));
     }
   };
 
