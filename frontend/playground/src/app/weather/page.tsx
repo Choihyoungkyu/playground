@@ -51,6 +51,7 @@ const weather = () => {
   };
 
   const [weatherData, setWeatherData] = useState<Object[]>(null);
+  const [inputData, setInputData] = useState<string>('');
 
   getWeatherList(params);
 
