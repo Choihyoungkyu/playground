@@ -1,7 +1,12 @@
 .wrap {
   padding: 1rem;
-  width: 300px;
+  width: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  @media (max-width: 1024px) {
+    padding: 2rem;
+    width: 300px;
+  }
 }

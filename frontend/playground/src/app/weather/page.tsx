@@ -1,12 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from '@/styles/weather.module.css';
 import Card from '@/components/Card/Card';
 import InputBox from '@/components/InputBox/InputBox';
-import { getWeatherList } from '@/core/weather/weatherAPI';
+import { getAddressList, getWeatherList } from '@/core/weather/weatherAPI';
+import useDebounce from '@/hooks/useDebounce';
 
 const weather = () => {
+  const [weatherData, setWeatherData] = useState<Object[]>(null);
+  const [keyword, setKeyword] = useState<string>('');
+  const debounceKeyword = useDebounce(keyword);
+
   // 기준 날짜 구하기
   const getDate = () => {
     const now = new Date();
@@ -50,14 +55,25 @@ const weather = () => {
     ny: 77,
   };
 
-  const [weatherData, setWeatherData] = useState<Object[]>(null);
-  const [inputData, setInputData] = useState<string>('');
+  const handleInput = (e) => {
+    setKeyword(e.target.value);
+  };
 
-  getWeatherList(params);
+  const handleSearch = () => {
+    const requestData = {
+      keyword: debounceKeyword,
+    };
+    const data = getAddressList(requestData);
+  };
+
+  useEffect(() => {
+    handleSearch();
+  }, [debounceKeyword]);
+  // getWeatherList(params);
 
   return (
     <div className={style.wrap}>
-      <InputBox />
+      <input value={keyword} onChange={handleInput} />
       <Card />
     </div>
   );
