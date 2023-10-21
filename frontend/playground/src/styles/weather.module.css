@@ -1,12 +1,31 @@
 .wrap {
   padding: 1rem;
-  width: 500px;
+  width: 600px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 
   @media (max-width: 1024px) {
     padding: 2rem;
-    width: 300px;
+    width: 400px;
   }
+}
+
+.searchList {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 1px;
+  background-color: gray;
+  padding: 0 10px;
+  border: 1px solid rgb(77, 77, 77);
+  /* z-index: 1; */
+  overflow-y: auto;
+  height: 7rem;
+}
+
+.adr {
+  /* position: absolute; */
+  cursor: pointer;
 }

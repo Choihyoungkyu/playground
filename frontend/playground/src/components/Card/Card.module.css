@@ -2,13 +2,19 @@
   background-color: rgba(117, 117, 117, 0.799);
   border-radius: 1rem;
   padding: 2rem;
+  margin-top: 1rem;
 }
 
 .region {
-  font-size: 2rem;
+  font-size: 1.5rem;
   margin-bottom: 1rem;
 }
 
 .temp {
   font-size: 1.5rem;
+}
+
+.weatherList {
+  display: flex;
+  /* flex-direction: column; */
 }
