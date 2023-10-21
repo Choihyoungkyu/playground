@@ -223,10 +223,11 @@ video {
 
 ::-webkit-scrollbar {
   width: 3px;
+  height: 3px;
 }
 
 ::-webkit-scrollbar-thumb {
-  /* background-color: var(--colors-background); */
+  background-color: white;
   border-radius: 4px;
 }
 

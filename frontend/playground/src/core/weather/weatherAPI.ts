@@ -28,6 +28,8 @@ export const getWeatherList = async (requestData: GetWeatherList) => {
   try {
     const response = await fetch(url);
     const data = await response.json();
+    console.log(requestData);
+    console.log(data);
     const res = await data.response.body.items;
     return { result: 'success', data: res };
   } catch (err) {

@@ -71,24 +71,38 @@ const Card = (props: PropsType) => {
     }
     console.log(weather);
   }
+
+  const changeTime = (time: string) => {
+    const hour = time.substring(0, 2);
+    let change = '';
+    if (parseInt(hour) === 0) {
+      change += '오전 12';
+    } else if (parseInt(hour) < 12) {
+      change += '오전 ' + parseInt(hour).toString();
+    } else if (parseInt(hour) === 12) {
+      change += '오후 12';
+    } else {
+      change += '오후 ' + (parseInt(hour) - 12).toString();
+    }
+    change += '시';
+    return change;
+  };
+
   return (
     <div className={style.wrap}>
       <div className={style.region}>{props.location}</div>
-      {weather.map((data, index) => {
-        return (
-          <div key={index}>
-            <div className={style.weatherList}>
-              <div>
-                {data.fcstDate.substring(4, 6)}/{data.fcstDate.substring(6, 8)}
+      <div className={style.weatherWarp}>
+        {weather.map((data, index) => {
+          return (
+            <div key={index}>
+              <div className={style.weatherList}>
+                <div id="time">{changeTime(data.fcstTime.substring(0, 2))}</div>
+                <div className={style.temp}>{data.category.T1H} ℃</div>
               </div>
-              <div>
-                {data.fcstTime.substring(0, 2)}:{data.fcstTime.substring(2, 4)}
-              </div>
-              <div>{data.category.T1H} ℃</div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 };
