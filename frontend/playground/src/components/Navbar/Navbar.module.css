@@ -3,7 +3,12 @@
   height: 4rem;
   justify-content: space-between;
   align-items: center;
-  /* margin-bottom: 2rem; */
+  border-bottom: 1px solid white;
+  margin-bottom: 1rem;
+
+  @media (max-width: 1024px) {
+    margin-bottom: 0rem;
+  }
 }
 
 .logo {

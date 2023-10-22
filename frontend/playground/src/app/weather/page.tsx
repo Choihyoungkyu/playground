@@ -118,8 +118,9 @@ const weather = () => {
 
   return (
     <>
-      <PageHeader title="Weather" />
+      {/* <PageHeader title="" /> */}
       <div className={style.wrap}>
+        <h3 className={style.title}>날씨</h3>
         <input value={keyword} onChange={handleInput} placeholder="위치를 입력하세요." />
         {Object.keys(searchList).length > 0 ? (
           <ul className={style.searchList}>

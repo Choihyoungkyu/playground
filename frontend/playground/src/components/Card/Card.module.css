@@ -7,6 +7,10 @@
   border-radius: 1rem;
   padding: 1.5rem;
   margin-top: 1rem;
+
+  @media (max-width: 1024px) {
+    padding: 1rem;
+  }
 }
 
 .mainBoard {

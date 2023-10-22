@@ -117,9 +117,10 @@ const calculator = () => {
   };
 
   return (
-    <>
-      <PageHeader title="Calculator" />
+    <div style={{ padding: '1rem' }}>
+      {/* <PageHeader title="Calculator" /> */}
       <div className={style.wrap}>
+        <h3 className={style.title}>계산기</h3>
         <section>
           <div className={style.num}>{buffer === '0' ? num.current : buffer}</div>
         </section>
@@ -171,7 +172,7 @@ const calculator = () => {
           </div>
         </section>
       </div>
-    </>
+    </div>
   );
 };
 

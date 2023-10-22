@@ -11,6 +11,10 @@
   }
 }
 
+.title {
+  margin-bottom: 0.5rem;
+}
+
 .searchList {
   position: relative;
   display: flex;
