@@ -1,4 +1,12 @@
 import React from 'react';
+import { FaSnowflake, FaSun } from 'react-icons/fa6';
+import {
+  BsCloudMoonFill,
+  BsCloudSunFill,
+  BsFillCloudRainHeavyFill,
+  BsFillCloudsFill,
+  BsMoonStarsFill,
+} from 'react-icons/bs';
 import style from './Card.module.css';
 
 interface PropsType {
@@ -69,7 +77,6 @@ const Card = (props: PropsType) => {
       };
       weather.push(tmp);
     }
-    console.log(weather);
   }
 
   const changeTime = (time: string) => {
@@ -88,21 +95,86 @@ const Card = (props: PropsType) => {
     return change;
   };
 
+  // 하늘 상태(SKY)
+  const getSkyState = (SKY: string): string => {
+    if (SKY === '1') {
+      return '맑음';
+    } else if (SKY === '3') {
+      return '구름 많음';
+    } else {
+      return '흐림';
+    }
+  };
+
+  // 강수 형태(PTY)
+  const getRainState = (PTY: string, SKY: string): string => {
+    if (PTY === '0') {
+      return getSkyState(SKY);
+    } else if (PTY === '1') {
+      return '비';
+    } else if (PTY === '2') {
+      return '비/눈';
+    } else {
+      return '눈';
+    }
+  };
+
+  // 날씨 아이콘 변경 함수
+  const getSkyIcon = (s: string, time: string) => {
+    if (s === '맑음') {
+      if (parseInt(time) < 7 || parseInt(time) > 19) {
+        return <BsMoonStarsFill />;
+      } else {
+        return <FaSun />;
+      }
+    } else if (s === '구름 많음') {
+      if (parseInt(time) < 7 || parseInt(time) > 19) {
+        return <BsCloudMoonFill />;
+      } else {
+        return <BsCloudSunFill />;
+      }
+    } else if (s === '흐림') {
+      return <BsFillCloudsFill />;
+    } else if (s === '비') {
+      return <BsFillCloudRainHeavyFill />;
+    } else if (s === '비/눈' || s === '눈') {
+      return <FaSnowflake />;
+    }
+  };
+
   return (
     <div className={style.wrap}>
-      <div className={style.region}>{props.location}</div>
-      <div className={style.weatherWarp}>
-        {weather.map((data, index) => {
-          return (
-            <div key={index}>
-              <div className={style.weatherList}>
-                <div id="time">{changeTime(data.fcstTime.substring(0, 2))}</div>
-                <div className={style.temp}>{data.category.T1H} ℃</div>
-              </div>
+      <div className={style.mainBoard}>
+        <div className={style.region}>{props.location}</div>
+        {weather.length > 0 ? (
+          <>
+            <div className={style.mainTemp}>{weather[0].category.T1H} ℃</div>
+            <div className={style.sky}>
+              {getRainState(weather[0].category.PTY, weather[0].category.SKY)}
             </div>
-          );
-        })}
+          </>
+        ) : null}
       </div>
+      {weather.length > 0 ? (
+        <div className={style.weatherWarp}>
+          {weather.map((data, index) => {
+            return (
+              <div key={index}>
+                <div className={style.weatherList}>
+                  <div className={style.time}>
+                    {index === 0 ? '현재' : changeTime(data.fcstTime.substring(0, 2))}
+                  </div>
+                  {getSkyIcon(
+                    getRainState(data.category.PTY, data.category.SKY),
+                    data.fcstTime.substring(0, 2)
+                  )}
+                  <div className={style.temp}>{data.category.T1H} ℃</div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      ) : null}
     </div>
   );
 };

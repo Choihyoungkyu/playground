@@ -1,6 +1,7 @@
 'use client';
 
 import NumButton from '@/components/NumButton/NumButton';
+import PageHeader from '@/components/PageHeader/PageHeader';
 import style from '@/styles/calculator.module.css';
 import { useRef, useState } from 'react';
 
@@ -116,58 +117,61 @@ const calculator = () => {
   };
 
   return (
-    <div className={style.wrap}>
-      <section>
-        <div className={style.num}>{buffer === '0' ? num.current : buffer}</div>
-      </section>
-      <section>
-        <div className={style.numRow}>
-          <NumButton num={'AC'} className="gray" handleButton={handleButton} />
-          <NumButton num={'+/-'} className="gray" handleButton={doPlusMinus} />
-          <NumButton num={'←'} className="gray" handleButton={handleButton} />
-          <NumButton
-            num={'÷'}
-            className={`orange ${previousSymbol.current === '÷' && 'focus'}`}
-            handleButton={handleButton}
-          />
-        </div>
-        <div className={style.numRow}>
-          <NumButton num={'7'} handleButton={handleButton} />
-          <NumButton num={'8'} handleButton={handleButton} />
-          <NumButton num={'9'} handleButton={handleButton} />
-          <NumButton
-            num={'x'}
-            className={`orange ${previousSymbol.current === 'x' && 'focus'}`}
-            handleButton={handleButton}
-          />
-        </div>
-        <div className={style.numRow}>
-          <NumButton num={'4'} handleButton={handleButton} />
-          <NumButton num={'5'} handleButton={handleButton} />
-          <NumButton num={'6'} handleButton={handleButton} />
-          <NumButton
-            num={'-'}
-            className={`orange ${previousSymbol.current === '-' && 'focus'}`}
-            handleButton={handleButton}
-          />
-        </div>
-        <div className={style.numRow}>
-          <NumButton num={'1'} handleButton={handleButton} />
-          <NumButton num={'2'} handleButton={handleButton} />
-          <NumButton num={'3'} handleButton={handleButton} />
-          <NumButton
-            num={'+'}
-            className={`orange ${previousSymbol.current === '+' && 'focus'}`}
-            handleButton={handleButton}
-          />
-        </div>
-        <div className={style.numRow}>
-          <NumButton num={'0'} className="zero" handleButton={handleButton} />
-          <NumButton num={'.'} handleButton={handleButton} />
-          <NumButton num={'='} className="orange" handleButton={handleButton} />
-        </div>
-      </section>
-    </div>
+    <>
+      <PageHeader title="Calculator" />
+      <div className={style.wrap}>
+        <section>
+          <div className={style.num}>{buffer === '0' ? num.current : buffer}</div>
+        </section>
+        <section>
+          <div className={style.numRow}>
+            <NumButton num={'AC'} className="gray" handleButton={handleButton} />
+            <NumButton num={'+/-'} className="gray" handleButton={doPlusMinus} />
+            <NumButton num={'←'} className="gray" handleButton={handleButton} />
+            <NumButton
+              num={'÷'}
+              className={`orange ${previousSymbol.current === '÷' && 'focus'}`}
+              handleButton={handleButton}
+            />
+          </div>
+          <div className={style.numRow}>
+            <NumButton num={'7'} handleButton={handleButton} />
+            <NumButton num={'8'} handleButton={handleButton} />
+            <NumButton num={'9'} handleButton={handleButton} />
+            <NumButton
+              num={'x'}
+              className={`orange ${previousSymbol.current === 'x' && 'focus'}`}
+              handleButton={handleButton}
+            />
+          </div>
+          <div className={style.numRow}>
+            <NumButton num={'4'} handleButton={handleButton} />
+            <NumButton num={'5'} handleButton={handleButton} />
+            <NumButton num={'6'} handleButton={handleButton} />
+            <NumButton
+              num={'-'}
+              className={`orange ${previousSymbol.current === '-' && 'focus'}`}
+              handleButton={handleButton}
+            />
+          </div>
+          <div className={style.numRow}>
+            <NumButton num={'1'} handleButton={handleButton} />
+            <NumButton num={'2'} handleButton={handleButton} />
+            <NumButton num={'3'} handleButton={handleButton} />
+            <NumButton
+              num={'+'}
+              className={`orange ${previousSymbol.current === '+' && 'focus'}`}
+              handleButton={handleButton}
+            />
+          </div>
+          <div className={style.numRow}>
+            <NumButton num={'0'} className="zero" handleButton={handleButton} />
+            <NumButton num={'.'} handleButton={handleButton} />
+            <NumButton num={'='} className="orange" handleButton={handleButton} />
+          </div>
+        </section>
+      </div>
+    </>
   );
 };
 

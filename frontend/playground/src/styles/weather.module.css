@@ -1,13 +1,13 @@
 .wrap {
-  padding: 1rem;
   width: 100%;
+  max-width: 1000px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-inline: auto;
 
   @media (max-width: 1024px) {
-    padding: 2rem;
-    width: 100%;
+    padding: 1rem;
   }
 }
 
@@ -16,16 +16,22 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: 1px;
-  background-color: gray;
-  padding: 0 10px;
-  border: 1px solid rgb(77, 77, 77);
-  /* z-index: 1; */
+  margin-top: 2px;
+  background-color: rgba(58, 58, 58, 0.799);
+  /* padding: ; */
+  border: 1px solid rgb(41, 41, 41);
+  border-radius: 8px;
   overflow-y: auto;
-  height: 7rem;
+  height: 10rem;
 }
 
 .adr {
-  /* position: absolute; */
+  /* position: fixed; */
   cursor: pointer;
+  width: 100%;
+  padding: 0.25rem 1rem;
+}
+
+.adr:hover {
+  background-color: rgba(60, 60, 60, 0.799);
 }

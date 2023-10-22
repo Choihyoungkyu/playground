@@ -3,15 +3,25 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgba(117, 117, 117, 0.799);
+  background-color: rgba(58, 58, 58, 0.799);
   border-radius: 1rem;
   padding: 1.5rem;
   margin-top: 1rem;
 }
 
+.mainBoard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .region {
   font-size: 1.25rem;
-  margin-bottom: 1rem;
+}
+
+.mainTemp {
+  font-size: 2rem;
+  font-weight: 500;
 }
 
 .weatherWarp {
@@ -19,6 +29,10 @@
   justify-content: space-between;
   width: 100%;
   overflow-x: auto;
+  background-color: rgb(70, 70, 70);
+  padding: 1rem 0.5rem;
+  border-radius: 12px;
+  margin-top: 2rem;
 }
 
 .weatherList {
@@ -27,9 +41,24 @@
   align-items: center;
   width: 5rem;
   font-size: 1rem;
+
+  @media (max-width: 1024px) {
+    width: 4rem;
+    font-size: 0.75rem;
+  }
+}
+
+.time {
+  margin-bottom: 0.25rem;
 }
 
 .temp {
   display: flex;
   justify-content: center;
+  margin-top: 0.5rem;
+  font-size: 1.25rem;
+
+  @media (max-width: 1024px) {
+    font-size: 1rem;
+  }
 }

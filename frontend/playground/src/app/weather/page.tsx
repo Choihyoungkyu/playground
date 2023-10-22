@@ -5,6 +5,7 @@ import style from '@/styles/weather.module.css';
 import Card from '@/components/Card/Card';
 import { getAddressList, getWeatherList } from '@/core/weather/weatherAPI';
 import useDebounce from '@/hooks/useDebounce';
+import PageHeader from '@/components/PageHeader/PageHeader';
 
 interface weatherType {
   baseDate: string;
@@ -116,21 +117,24 @@ const weather = () => {
   }, [debounceKeyword]);
 
   return (
-    <div className={style.wrap}>
-      <input value={keyword} onChange={handleInput} placeholder="위치를 입력하세요." />
-      {Object.keys(searchList).length > 0 ? (
-        <ul className={style.searchList}>
-          {Object.keys(searchList).map((adr, idx) => {
-            return (
-              <li className={style.adr} key={adr} tabIndex={idx} onClick={handleGetAdr}>
-                {adr}
-              </li>
-            );
-          })}
-        </ul>
-      ) : null}
-      <Card location={location} weatherData={weatherData} />
-    </div>
+    <>
+      <PageHeader title="Weather" />
+      <div className={style.wrap}>
+        <input value={keyword} onChange={handleInput} placeholder="위치를 입력하세요." />
+        {Object.keys(searchList).length > 0 ? (
+          <ul className={style.searchList}>
+            {Object.keys(searchList).map((adr, idx) => {
+              return (
+                <li className={style.adr} key={adr} tabIndex={idx} onClick={handleGetAdr}>
+                  {adr}
+                </li>
+              );
+            })}
+          </ul>
+        ) : null}
+        <Card location={location} weatherData={weatherData} />
+      </div>
+    </>
   );
 };
 
