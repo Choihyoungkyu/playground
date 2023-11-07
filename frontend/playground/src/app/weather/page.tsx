@@ -35,6 +35,9 @@ const weather = () => {
     } else {
       date += (now.getMonth() + 1).toString();
     }
+    if (now.getDate() < 10) {
+      date += '0';
+    }
     date += now.getDate();
     return date;
   };
@@ -101,6 +104,7 @@ const weather = () => {
     };
     // 날씨 요청 함수
     const data = await getWeatherList(params);
+    console.log(data);
     if (data.result === 'success') {
       setWeatherData(data.data.item);
       setLocation(e.target.innerText);
