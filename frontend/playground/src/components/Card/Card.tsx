@@ -123,22 +123,22 @@ const Card = (props: PropsType) => {
   const getSkyIcon = (s: string, time: string) => {
     if (s === '맑음') {
       if (parseInt(time) < 7 || parseInt(time) > 19) {
-        return <BsMoonStarsFill />;
+        return <BsMoonStarsFill size="1.5rem" />;
       } else {
         return <FaSun />;
       }
     } else if (s === '구름 많음') {
       if (parseInt(time) < 7 || parseInt(time) > 19) {
-        return <BsCloudMoonFill />;
+        return <BsCloudMoonFill size="1.5rem" />;
       } else {
-        return <BsCloudSunFill />;
+        return <BsCloudSunFill size="1.5rem" />;
       }
     } else if (s === '흐림') {
-      return <BsFillCloudsFill />;
+      return <BsFillCloudsFill size="1.5rem" />;
     } else if (s === '비') {
-      return <BsFillCloudRainHeavyFill />;
+      return <BsFillCloudRainHeavyFill size="1.5rem" />;
     } else if (s === '비/눈' || s === '눈') {
-      return <FaSnowflake />;
+      return <FaSnowflake size="1.5rem" />;
     }
   };
 
